@@ -1,0 +1,146 @@
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+  }
+  
+  *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    }
+    
+    body{
+        background: linear-gradient(90deg, rgb(170, 255, 73) 0%, rgb(255, 217, 90) 35%, rgb(250, 101, 101) 100%);
+    }
+    
+    h1{
+    font-size:2rem !important ;
+    font-weight: 700;
+    color: black;                /* color de la letra */
+    text-align: center;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    }
+    
+    .abs-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;         /*100vh es el 100% de alto */
+        
+      }
+    
+      .form {
+        width: 420px;
+        background-color: rgba(255, 201, 191, 0.897);
+        padding: 50px;
+        border-radius: 20px;
+        margin-top: 10px;
+      }
+      .registra{
+        width: 1000px;
+        background-color: white;
+        padding: 50px;
+        border-radius: 20px;
+        margin-top: 10px;
+      }
+      .inicio{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 20vh;   
+        width: 1500px;
+        background-color: white;
+        padding: 50px;
+        border-radius: 20px;
+        margin-top: 10px;
+      }
+      .carrusel{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 20vh;   
+        width: 1500px;
+        background-color: white;
+        padding: 50px;
+        border-radius: 20px;
+        margin-top: 10px;
+      }
+      .bicicleta{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 20vh;   
+        width: 1000px;
+        background-color: white;
+        padding: 50px;
+        border-radius: 20px;
+        margin-top: 10px;
+      }
+      .api{
+       
+        align-items: left;
+        justify-content: left;
+        min-height: 20vh;  
+        width: 1500px;
+        background-color: white;
+        padding: 200px;
+        border-radius: 100px;
+        margin-left: 100px;
+      }
+    
+      
+    
+      label{
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+      }     
+  .boton{
+    background: #849175;
+    border: solid 0;
+    color: #fff;
+    padding:  10px;;
+  }
+  
+  .btn-comprar{
+  text-align: center;
+  }
+  
+  .errores{
+  
+   
+    background: rgb(255, 0, 0);  
+    color: #fff;
+    display: none;
+    font-size: 13px;
+    margin-top: -90px;    
+    margin-left: 240px;
+    padding: 10px;
+    position: absolute;
+  }
+  .carrito{
+  width: 250px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 10vh;  
+  }
+  .tienda{
+    width: 1000px;
+    background-color: white;
+    padding: 50px;
+    border-radius: 20px;
+    margin-top: 10px;
+  
+  }
+  

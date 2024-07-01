@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="abs-center">
+        <form class="form" id="form">
+            <h1>Registro</h1>
+            <br/>
+            <label>*Nombre</label><br/>
+            <input type="text" id="itNombre" name="itNombre" class="form-control"/><br/>
+            <div id="mensaje1" class="errores">Dame tu nombre</div> 
+
+            <label>*Correo Electronico</label><br/>
+            <input type="text" id="itMail" name="itMail"class="form-control"/><br/>
+            <div id="mensaje2" class="errores">Dame un mail correcto</div> 
+
+            <label>*Contraseña</label><br/>
+            <input type="password" id="itContraseña" name="password" class="form-control"/><br/> 
+            <div id="mensaje3" class="errores">Ingresa contraseña</div> 
+
+            <label>Tarjeta</label><br/>
+            <select name="Tarjeta" id="Tarjeta">
+                <option value="" selected></option>
+                <option value="tarjeta 1">Credito</option>
+                <option value="tarjeta 2">Devito</option>
+                <option value="tarjeta 3">Visa</option>
+            </select><br/>
+            <div id="mensaje4" class="errores">Selecciona tarjeta</div> 
+
+            <input type="submit" id="bEnviar" value="Enviar Datos" class="btn btn-primary"/>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+
+    <script>
+        $(document).ready(function(){
+            $("#bEnviar").click(function(){
+                var expr = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                var nombre = $("#itNombre").val();
+                var correo = $("#itMail").val();
+                var contraseña = $("#itContraseña").val();
+                var opcion = $("#Tarjeta").val(); 
+                if(nombre == ""){
+                    $("#mensaje1").fadeIn();
+                    return false;                
+                } else {
+                    $("#mensaje1").fadeOut();
+                    
+                    if(correo == "" || !expr.test(correo)){
+                        $("#mensaje2").fadeIn();
+                        return false;
+                    } else {
+                        $("#mensaje2").fadeOut();
+                        
+                        if(contraseña == ""){
+                            $("#mensaje3").fadeIn();
+                            return false;     
+                        } else {
+                            $("#mensaje3").fadeOut();
+                            
+                            if(opcion == ""){
+                                $("#mensaje4").fadeIn();
+                                return false;
+                            } else {
+                                $("#mensaje4").fadeOut();
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        const btn = document.getElementById('bEnviar');
+
+        document.getElementById('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            btn.value = 'Sending...';
+
+            const serviceID = 'default_service'; 
+            const templateID = 'template_b2yjpz4'; 
+
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    btn.value = 'Enviar Datos';
+                    alert('Sent!');
+                }, (err) => {
+                    btn.value = 'Enviar Datos';
+                    alert(JSON.stringify(err));
+                });
+        });
+    </script>
+        <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+        <script type="text/javascript">
+            (function(){
+                emailjs.init('wIC63eFBBfZJBht2G'); 
+            })();
+        </script>
+</body>
+</html>

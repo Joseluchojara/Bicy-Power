@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Bicicletas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/index.css">
+    <style>
+        /* Estilos adicionales */
+
+    </style>
+</head>
+
+<body>
+    <!-- Encabezado con logo y menú -->
+    <div class="arriba_logo">
+        <div class="pagimg">
+            <div></div>
+            <img class="pagimg_img" src="/img/logobiciclepower.jpg" alt="Logo">
+            
+            <div class="usuario_icon">
+                <img src="/img/person_48dp_FILL0_wght400_GRAD0_opsz48 (2).png" alt="usuario">
+                <img src="/img/no_accounts_48dp_FILL0_wght400_GRAD0_opsz48.png" alt="cerrar sesión">
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Formulario de búsqueda -->
+            <form class="d-flex mx-auto mb-0" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                    <img src="/img/search_24dp_FILL0_wght400_GRAD0_opsz24.png" alt="Buscar" width="30px" height="30px">
+                </button>
+            </form>
+            <!-- Icono de carrito -->
+            <div class="cart-icon">
+                <span id="carrito-icono" onclick="toggleCarrito()">
+                    <img src="/img/shopping_cart_24dp_FILL0_wght400_GRAD0_opsz24.png" alt="Carrito">
+                    <span id="carrito-cantidad" class="badge bg-secondary">0</span> <!-- Aquí se actualizará la cantidad de items en el carrito -->
+                </span>
+                <div id="carrito-detalle" class="carrito-detalle">
+                    <ul id="lista-productos">
+                        <!-- Aquí se agregarán dinámicamente los productos -->
+                    </ul>
+                    <p>Total: $<span id="total">0.00</span></p>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="container my-5">
+        <h2 class="text-center mb-4">Nuestras Bicicletas</h2>
+
+        <!-- Grilla de productos -->
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Producto 1 -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/img/bicicleta1.jpg" class="card-img-top" alt="Bicicleta Oxford">
+                    <div class="card-body">
+                        <h5 class="card-title">Bicicleta Oxford Muestra</h5>
+                        <p class="card-text">Colección "Oxford"</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarrito({ nombre: 'Bicicleta Oxford', precio: 1000, cantidad: 1 })">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/img/bicicleta2.jpg" class="card-img-top" alt="Bicicleta Scott">
+                    <div class="card-body">
+                        <h5 class="card-title">Bicicleta Scott Muestra</h5>
+                        <p class="card-text">Colección "Scott"</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarrito({ nombre: 'Bicicleta Scott', precio: 1200, cantidad: 1 })">Comprar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/img/bicicleta3.jpg" class="card-img-top" alt="Bicicleta Trek">
+                    <div class="card-body">
+                        <h5 class="card-title">Bicicleta Trek Muestra</h5>
+                        <p class="card-text">Colección "Trek"</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarrito({ nombre: 'Bicicleta Trek', precio: 1500, cantidad: 1 })">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Función para mostrar u ocultar el detalle del carrito
+        function toggleCarrito() {
+            const carritoDetalle = document.getElementById('carrito-detalle');
+            
+            if (carritoDetalle.style.display === 'none' || carritoDetalle.style.display === '') {
+                carritoDetalle.style.display = 'block';
+            } else {
+                carritoDetalle.style.display = 'none';
+            }
+        }
+
+        // Función para agregar un producto al carrito
+        function agregarAlCarrito(producto) {
+            // Crear elemento de lista para el producto
+            const listaProductos = document.getElementById('lista-productos');
+            const nuevoProducto = document.createElement('li');
+            nuevoProducto.innerHTML = `${producto.nombre} - $${producto.precio.toFixed(2)} <button class="eliminar" onclick="eliminarProducto(this, ${producto.precio})">Eliminar</button>`;
+            
+            // Agregar el producto a la lista del carrito
+            listaProductos.appendChild(nuevoProducto);
+
+            // Sumar el precio del producto al total
+            sumarTotal(producto.precio);
+
+            // Actualizar la cantidad de productos en el carrito
+            actualizarCantidadCarrito();
+        }
+
+        // Función para eliminar un producto del carrito
+        function eliminarProducto(elemento, precioProducto) {
+            // Eliminar el elemento de la lista
+            elemento.parentNode.remove();
+            
+            // Restar el precio del producto eliminado al total
+            restarTotal(precioProducto);
+
+            // Actualizar la cantidad de productos en el carrito
+            actualizarCantidadCarrito();
+        }
+
+        // Función para sumar el precio al total del carrito
+        function sumarTotal(precio) {
+            const totalElemento = document.getElementById('total');
+            let total = parseFloat(totalElemento.textContent);
+            total += precio;
+            totalElemento.textContent = total.toFixed(2);
+        }
+
+        // Función para restar el precio al total del carrito
+        function restarTotal(precio) {
+            const totalElemento = document.getElementById('total');
+            let total = parseFloat(totalElemento.textContent);
+            total -= precio;
+            totalElemento.textContent = total.toFixed(2);
+        }
+
+        // Función para actualizar la cantidad de productos en el carrito
+        function actualizarCantidadCarrito() {
+            const cantidadProductos = document.getElementById('lista-productos').childElementCount;
+            const carritoCantidad = document.getElementById('carrito-cantidad');
+            carritoCantidad.textContent = cantidadProductos;
+        }
+    </script>
+
+    <!-- Scripts Bootstrap (jQuery y Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-iMaFfVsqg9TC2z3R6YZp0clI+g/tL2oMxC5ScLeSvBgB6Xf8i3G4H2Z4zpNk4fQM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-qdZg/2L5VdBkZkTWHz4JoRVsVI5pDdVLdc4QTPYK3JzQ9Fc6xL4YXv5oo8gDyM8n" crossorigin="anonymous"></script>
+</body>
+
+</html>

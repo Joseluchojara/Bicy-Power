@@ -1,0 +1,96 @@
+.cart-icon {
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.cart-icon img {
+    width: 30px;
+    height: 30px;
+}
+.pagimg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url('/img/background.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100px;
+    padding: 0 20px;
+}
+.pagimg img {
+    max-width: 150px;
+    max-height: 100px;
+    border-radius: 5px;
+}
+body {
+    background-color: #5c5c5c;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.arriba_logo {
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+}
+.usuario_icon {
+    display: flex;
+    align-items: center;
+}
+.usuario_icon img {
+    margin-left: 15px;
+    width: 48px;
+    height: 48px;
+}
+/* Estilos para mejorar la visibilidad del menú de navegación */
+.navbar-dark .navbar-nav .nav-link {
+    color: white; /* Color del texto */
+    font-weight: bold; /* Peso de la fuente */
+    font-size: 1.1em; /* Tamaño de la fuente */
+}
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: #f8f9fa; /* Color del texto al pasar el cursor */
+}
+
+/* Estilos para el carrito */
+.carrito-detalle {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    top: 70px;
+    right: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    width: 200px;
+}
+.carrito-detalle ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.carrito-detalle p {
+    margin-top: 10px;
+    font-weight: bold;
+}
+.carrito-detalle button {
+    margin-top: 5px;
+    cursor: pointer;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+.carrito-detalle button:hover {
+    background-color: #c82333;
+}

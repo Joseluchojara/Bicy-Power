@@ -1,0 +1,7 @@
+.card {
+    margin-bottom: 20px;
+}
+.card-img-top {
+    height: 250px; /* Altura fija para las imágenes de los productos */
+    object-fit: cover; /* Ajuste para cubrir el área del contenedor */
+}

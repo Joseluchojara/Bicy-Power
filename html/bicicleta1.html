@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bicicleta1</title>
+    <script src="./Java/funcion.js" defer></script>
+    <!--Estilo-->
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+</head>
+<body>
+
+
+    <!--Menu de inicio-->
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <img src="/img/logobiciclepower.jpg" width="150px" height="100px">
+            <a class="navbar-brand" href="#">Bicycle Power</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/html/inicio.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/html/nosotros.html">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/html/registro.html">Registro</a>
+                        </li>
+                        <li class="nav-item"> 
+                            <a class="nav-link" href="/html/Iniciar_sesión.html"> Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item"> 
+                          <a class="nav-link" href="/html/API.html"> Iniciar sesión</a>
+                      </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Tienda
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="/html/bicicleta.html">Bicicleta</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="carrito">
+                        <img src="/img/carrito.jpg" class="d-block w-100" alt="cascada" width="50px" height="150px">
+                    </div>
+                    <input type="button"class="btn btn-primary" value="borrar"onclick="carrito('borrar')">
+                    <input type="number" id="numero" value="0" readonly> 
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="abs-center">
+        <form class="form" action="">
+            <img class="card" src="/img/bicicleta1.jpg" alt=" bicicleta1" /> 
+            <div class="producto-info">
+                <h1>Bicicleta marca Oxford</h1>
+                <ul>
+                    <li>bicicleta:</li>
+                    <li>Oxford</li>
+                    <li>color azul (estandar)</li>
+                    <li>Estilo normal</li>
+                    <li>bici: Unisex</li>      
+
+                  </div> 
+                </ul>
+                <div class="btn-comprar">
+                <input type="button"class="btn btn-primary" value ="Comprar"onclick="carrito('sumar')"> <br>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <title>API BICI POWER</title>
+</head>
+<body>
+    
+    
+    <div class="api">
+    <div>
+        <h1> Las ventas de bicicletas</h1>
+        <input type="submit" class="btn btn-primary" id="enviar" value="Traer datos">
+    </div>
+    
+    <div id="categorias"></div>
+    <script>
+        $("#enviar").click(function(){
+            $.get("https://bikeindex.org/api/v3/search", function(data){
+                $.each(data.bikes, function(i, bike){
+                    $("#categorias").append("<div class='bike'><p>"+bike.id+"</p><p>" +bike.title+
+                        "</p><img src='"+bike.large_img+"'><p>"+bike.frame_model+"</p></div><hr class='linea-horizontal'>");
+                });
+            });
+        });
+    </script>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
