@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Bicicletas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    <div class="arriba_logo">
+        <div class="pagimg">
+            <div></div>
+            
+            <img class="pagimg_img" src="{% static 'img/logobiciclepower.jpg' %}" alt="Logo">
+            
+            <div class="usuario_icon">
+                <img src="{% static 'img/person_48dp_FILL0_wght400_GRAD0_opsz48 (2).png' %}" alt="usuario">
+            <div class="user">
+                {% if user.username == "admin" %}
+                    <a href="{% url 'list' %}">{{ user.username }}</a>
+                {% else %}
+                    {{ user.username }}
+                {% endif %}
+            </div>
+
+                <img src="{% static 'img/no_accounts_48dp_FILL0_wght400_GRAD0_opsz48.png' %}" alt="cerrar sesión"> <a href="{% url 'login'%}">Salir</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Formulario de búsqueda -->
+            <form class="d-flex mx-auto mb-0" role="search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">
+                    <img src="{% static 'img/search_24dp_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Buscar" width="30px" height="30px">
+                </button>
+            </form>
+            <!-- Icono de carrito -->
+            <div class="cart-icon">
+                <span id="carrito-icono" onclick="toggleCarrito()">
+                    <img src="{% static 'img/shopping_cart_24dp_FILL0_wght400_GRAD0_opsz24.png' %}" alt="Carrito">
+                    <span id="carrito-cantidad" class="badge bg-secondary">0</span> <!-- Aquí se actualizará la cantidad de items en el carrito -->
+                </span>
+                <div id="carrito-detalle" class="carrito-detalle" style="display: none;">
+                    <ul id="lista-productos">
+                        <!-- Aquí se agregarán dinámicamente los productos -->
+                    </ul>
+                    <p>Subtotal: $<span id="subtotal">0.00</span></p>
+                    <p>IVA (19%): $<span id="iva">0.00</span></p>
+                    <p>Envío: $<span id="envio">5000.00</span></p>
+                    <p>Total: $<span id="total">0.00</span></p>
+                    <button class="btn btn-comprar" onclick="verDetalle()">Comprar</button> <!-- Nuevo botón -->
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url  'tienda'%}">Tienda Bicicletas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accesorios'%}">Tienda de Acessorios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registro'%}">Registro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'API'%}">API</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index'%}">inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="container my-5">
+        <h2 class="text-center mb-4">Nuestras Bicicletas</h2>
+
+        <!-- Grilla de productos -->
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Iteramos sobre los productos del contexto -->
+            {% for producto in productos %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{% static producto.imagen %}" class="card-img-top" alt="{{ producto.nombre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">${{ producto.precio }}</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarrito({ nombre: '{{ producto.nombre }}', precio: {{ producto.precio }}, cantidad: 1 })">Comprar</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <!-- Scripts Bootstrap (jQuery y Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-iMaFfVsqg9TC2z3R6YZp0clI+g/tL2oMxC5ScLeSvBgB6Xf8i3G4H2Z4zpNk4fQM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-qdZg/2L5VdBkZkTWHz4JoRVsVI5pDdVLdc4QTPYK3JzQ9Fc6xL4YXv5oo8gDyM8n" crossorigin="anonymous"></script>
+
+    <!-- Scripts personalizados -->
+    <script>
+    const IVA = 0.19;
+    const COSTO_ENVIO = 5000;
+
+    // Función para mostrar u ocultar el detalle del carrito
+    function toggleCarrito() {
+        const carritoDetalle = document.getElementById('carrito-detalle');
+        if (carritoDetalle.style.display === 'none' || carritoDetalle.style.display === '') {
+            carritoDetalle.style.display = 'block';
+        } else {
+            carritoDetalle.style.display = 'none';
+        }
+    }
+
+    // Función para agregar un producto al carrito
+    function agregarAlCarrito(producto) {
+        // Crear elemento de lista para el producto
+        const listaProductos = document.getElementById('lista-productos');
+        const nuevoProducto = document.createElement('li');
+        nuevoProducto.innerHTML = `${producto.nombre} - $${producto.precio.toFixed(2)} <button class="eliminar" onclick="eliminarProducto(this, ${producto.precio})">Eliminar</button>`;
+        
+        // Agregar el producto a la lista del carrito
+        listaProductos.appendChild(nuevoProducto);
+
+        // Sumar el precio del producto al total
+        sumarTotal(producto.precio);
+
+        // Actualizar la cantidad de productos en el carrito
+        actualizarCantidadCarrito();
+    }
+
+    // Función para eliminar un producto del carrito
+    function eliminarProducto(elemento, precioProducto) {
+        // Eliminar el elemento de la lista
+        elemento.parentNode.remove();
+        
+        // Restar el precio del producto eliminado al total
+        restarTotal(precioProducto);
+
+        // Actualizar la cantidad de productos en el carrito
+        actualizarCantidadCarrito();
+    }
+
+    // Función para sumar el precio al total del carrito
+    function sumarTotal(precio) {
+        const subtotalElemento = document.getElementById('subtotal');
+        let subtotal = parseFloat(subtotalElemento.innerText);
+        subtotal += precio;
+        subtotalElemento.innerText = subtotal.toFixed(2);
+
+        // Actualizar IVA y total
+        actualizarIVAYTotal(subtotal);
+    }
+
+    // Función para restar el precio al total del carrito
+    function restarTotal(precio) {
+        const subtotalElemento = document.getElementById('subtotal');
+        let subtotal = parseFloat(subtotalElemento.innerText);
+        subtotal -= precio;
+        subtotalElemento.innerText = subtotal.toFixed(2);
+
+        // Actualizar IVA y total
+        actualizarIVAYTotal(subtotal);
+    }
+
+    // Función para actualizar el IVA y el total del carrito
+    function actualizarIVAYTotal(subtotal) {
+        const ivaElemento = document.getElementById('iva');
+        const totalElemento = document.getElementById('total');
+
+        const iva = subtotal * IVA;
+        const total = subtotal + iva + COSTO_ENVIO;
+
+        ivaElemento.innerText = iva.toFixed(2);
+        totalElemento.innerText = total.toFixed(2);
+    }
+
+    // Función para actualizar la cantidad de productos en el carrito
+    function actualizarCantidadCarrito() {
+        const listaProductos = document.getElementById('lista-productos');
+        const carritoCantidad = document.getElementById('carrito-cantidad');
+        const cantidadProductos = listaProductos.children.length;
+
+        carritoCantidad.innerText = cantidadProductos;
+    }
+
+    </script>
+
+<center><iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1666.1460223292768!2d-70.67895122361891!3d-33.363440797641246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c7027d62bd61%3A0x2730a9b6af745835!2sSta.%20Elena%20de%20Huechuraba%201660%2C%208600036%20Huechuraba%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1681164415630!5m2!1ses-419!2scl"
+    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"></iframe></center>
+
+
+
+
+<!--JSS BOOTSTRAP-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"></script>
+<!--Final de la pagina -->
+<footer class="bg-dark py-5">
+<div class="container">
+<div class="row text-white g-4">
+<div class="col-md-6 col-lg-3">
+    <a class="text-uppercase text-decoration-none brand text-white" href="../html/inicio.html">RTW</a>
+    <p class="text-white mt-3">Somos una tienda en línea especializada en ofrecerte lo mejor
+        del deporte urbana con una selección exclusiva de Bicicletas de la reconocida marca Bicy Power. Con sede
+        en Huechuraba, Región Metropolitana, estamos dedicados a proporcionarte una experiencia única de compra en línea
+        para los amantes del ciclismo urbano y rutal.</p>
+</div>
+
+<div class="col-md-6 col-lg-3">
+    <h5 class="fw-light">Links</h5>
+    <ul class="list-unstyled">
+        <li class="my-3">
+            <a href="" class="text-white text-decoration-none">
+                <i class="fas fa-chevron-right me-1"></i> Sobre nosotros
+            </a>
+        </li>
+        <li class="my-3">
+            <a href="" class="text-white text-decoration-none">
+                <i class="fas fa-chevron-right me-1"></i> Bicicletas
+            </a>
+        </li>
+        <li class="my-3">
+            <a href="" class="text-white text-decoration-none">
+                <i class="fas fa-chevron-right me-1"></i> Accesorios
+            </a>
+        </li>
+        <li class="my-3">
+            <a href="" class="text-white text-decoration-none">
+                <i class="fas fa-chevron-right me-1"></i> Registro
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="col-md-6 col-lg-3">
+    <h5 class="fw-light mb-3">Contáctanos</h5>
+    <div class="d-flex justify-content-start align-items-start my-2">
+        <span class="me-3">
+            <i class="fas fa-map-marked-alt"></i>
+        </span>
+        <span class="fw-light">
+            Sta. Elena de Huechuraba 1660, 8600036 Huechuraba, Región Metropolitana
+        </span>
+    </div>
+    <div class="d-flex justify-content-start align-items-start my-2">
+        <span class="me-3">
+            <i class="fas fa-envelope"></i>
+        </span>
+        <span class="fw-light">
+            RTW@AYUDA.cl
+        </span>
+    </div>
+    <div class="d-flex justify-content-start align-items-start my-2">
+        <span class="me-3">
+            <i class="fas fa-phone-alt"></i>
+        </span>
+        <span class="fw-light">
+            +56229993000
+        </span>
+    </div>
+</div>
+
+<div class="col-md-6 col-lg-3">
+    <h5 class="fw-light mb-3">Nuestras Redes</h5>
+    <div>
+        <ul class="list-unstyled d-flex">
+            <li>
+                <a href="#" class="text-white text-decoration-none fs-4 me-4">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-white text-decoration-none fs-4 me-4">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-white text-decoration-none fs-4 me-4">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="text-white text-decoration-none fs-4 me-4">
+                    <i class="fab fa-pinterest"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- Scripts de Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
